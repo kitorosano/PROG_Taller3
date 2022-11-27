@@ -27,7 +27,7 @@ public class PlataformaController {
             Map<String,Plataforma> plataformas = fabrica.getInstance().getIPlataforma().obtenerPlataformas();
 
             if (plataformas != null) {
-                HashMap<String, PlataformaDTO> plataformasDTO = PlataformaMapper.toDTOMap((HashMap<String, Plataforma>) plataformas);
+                Map<String, PlataformaDTO> plataformasDTO = PlataformaMapper.toDTOMap(plataformas);
                 return Response.ok(new Gson().toJson(plataformas)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
