@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Path("/espectaculos")
+@Path("/funciones")
 public class FuncionController {
     Fabrica fabrica = Fabrica.getInstance();
 
@@ -55,11 +55,12 @@ public class FuncionController {
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}&{nombreFuncion}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPlataforma_Espectador(@PathParam("nombrePlataforma") String nombrePlataforma,
+    public Response findByPlataforma_Espectaculo(@PathParam("nombrePlataforma") String nombrePlataforma,
                                                  @PathParam("nombreEspectaculo") String nombreEspectaculo,
                                                  @PathParam("nombreFuncion") String nombreFuncion) {
         try {
-            Optional<Funcion> funcion = fabrica.getInstance().getIFuncion().obtenerFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion);
+            Optional<Funcion> OPTfuncion = fabrica.getInstance().getIFuncion().obtenerFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion);
+            Funcion funcion = OPTfuncion.get();
 
             if (funcion != null) {
                 FuncionDTO funcionDTO = FuncionMapper.toDTO(funcion);
@@ -75,7 +76,7 @@ public class FuncionController {
     @GET
     @Path("/{nombrePlataforma}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPlataforma_Espectador(@PathParam("nombrePlataforma") String nombrePlataforma) {
+    public Response findByNombre(@PathParam("nombrePlataforma") String nombrePlataforma) {
         try {
             Map<String, Funcion> funciones = fabrica.getInstance().getIFuncion().obtenerFuncionesDePlataforma(nombrePlataforma);
 
@@ -93,7 +94,7 @@ public class FuncionController {
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findArtistasByEspectaculo(@PathParam("nombrePlataforma") String nombrePlataforma,
+    public Response findByPlataforma_Espectaculo(@PathParam("nombrePlataforma") String nombrePlataforma,
                                                          @PathParam("nombreEspectaculo") String nombreEspectaculo){
         try {
             Map<String, Funcion> funciones = fabrica.getInstance().getIFuncion().obtenerFuncionesDeEspectaculo(nombrePlataforma, nombreEspectaculo);

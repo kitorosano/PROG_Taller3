@@ -43,7 +43,7 @@ public class EspectaculoController {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(EspectaculoDTO espectaculo) {
+    public Response create(AltaEspectaculoDTO espectaculo) {
         try {
             fabrica.getInstance().getIEspectaculo().altaEspectaculo(espectaculo);
             return Response.status(Response.Status.CREATED).build();
@@ -112,7 +112,8 @@ public class EspectaculoController {
     public Response findByPlataforma_Espectaculo(@PathParam("nombrePlataforma") String nombrePlataforma,
                                             @PathParam("nombreEspectaculo") String nombreEspectaculo){
         try {
-            Optional<Espectaculo> espectaculo = fabrica.getInstance().getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo);
+            Optional<Espectaculo> OPTespectaculo = fabrica.getInstance().getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo);
+            Espectaculo espectaculo = OPTespectaculo.get();
 
             if (espectaculo != null) {
                 EspectaculoDTO espectaculoDTO = EspectaculoMapper.toDTO(espectaculo);

@@ -16,7 +16,7 @@ import main.java.taller1.Logica.Mappers.EspectaculoMapper;
 import java.util.Map;
 import java.util.Optional;
 
-@Path("/espectaculos")
+@Path("/categorias")
 public class CategoriaController {
 
     Fabrica fabrica = Fabrica.getInstance();
@@ -57,7 +57,8 @@ public class CategoriaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByNombre(@PathParam("nombre") String nombre) {
         try {
-            Optional<Categoria> categoria = fabrica.getICategoria().obtenerCategoria(nombre);
+            Optional<Categoria> OPTcategoria = fabrica.getICategoria().obtenerCategoria(nombre);
+            Categoria categoria = OPTcategoria.get();
 
             if (categoria != null) {
                 CategoriaDTO categoriaDTO = CategoriaMapper.toDTO(categoria);
@@ -75,7 +76,7 @@ public class CategoriaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findEspectaculosByNombreCategoria(@PathParam("nombre") String nombre) {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getICategoria().obtenerEspectaculosDeCategoria(nombre)
+            Map<String, Espectaculo> espectaculos = fabrica.getICategoria().obtenerEspectaculosDeCategoria(nombre);
 
             if (espectaculos != null) {
                 Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
