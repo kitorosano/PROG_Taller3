@@ -18,7 +18,7 @@ public class PaqueteController {
 
     Fabrica fabrica = Fabrica.getInstance();
 
-    //obtener todas las categorias
+    //obtener todos los paquetes
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -105,17 +105,17 @@ public class PaqueteController {
         }
     }
 
-    /*      TODO   Map<String, EspectadorPaquete>     (FALTA VER QUE PASA CON EspectadorPaquete)
+
     @GET
     @Path("/espectador/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findEspectadorByNombre(@PathParam("nombre") String nombre) {
         try {
-            Map<String,EspectadorPaquete> espectadores = fabrica.getIPaquete().obtenerEspectadoresDePaquete(nombre);
+            Map<String, Paquete> paquetes = fabrica.getIPaquete().obtenerPaquetesPorEspectador(nombre);
 
-            if (espectadores != null) {
-                Map<String, EspectadorPaqueteDTO> espectadorPaquetesDTOMap = UsuarioMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+            if (paquetes != null) {
+                Map<String, PaqueteDTO> PaquetesDTOMap = PaqueteMapper.toDTOMap(paquetes);
+                return Response.ok(new Gson().toJson(PaquetesDTOMap)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -123,19 +123,18 @@ public class PaqueteController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    */
 
-    /*       TODO Map<String, EspectadorPaquete>       (FALTA VER QUE PASA CON EspectadorPaquete)
+
     @GET
-    @Path("/espectador/{nickname}")
+    @Path("/espectadores/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findEspectadorByNombre(@PathParam("nickname") String nickname) {
+    public Response findEspectadoresByNombre(@PathParam("nombre") String nombre) {
         try {
-            Map<String,EspectadorPaquete> espectadores = fabrica.getIPaquete().obtenerPaquetesPorEspectador(nickname);
+            Map<String,Usuario> espectadores = fabrica.getIPaquete().obtenerEspectadoresDePaquete(nombre);
 
             if (espectadores != null) {
-                Map<String, EspectadorPaqueteDTO> espectadorPaquetesDTOMap = UsuarioMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+                Map<String, UsuarioDTO> espectadoresDTO = UsuarioMapper.toDTOMap(espectadores);
+                return Response.ok(new Gson().toJson(espectadoresDTO)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -143,35 +142,33 @@ public class PaqueteController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-     */
 
-    /*       TODO     void altaEspectaculoAPaquete     (FALTA VER QUE PASA CON EspectadorPaquete)
+
+    //altaEspectaculoAPaquete
     @POST
-    @Path("/")
+    @Path("/espectaculo")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(PaqueteDTO paqueteDTO) {
+    public Response create(AltaEspectaculoAPaqueteDTO altaEspectaculoAPaqueteDTO) {
         try {
-            fabrica.getInstance().getIPaquete().altaPaquete(paqueteDTO);
+            fabrica.getInstance().getIPaquete().altaEspectaculoAPaquete(altaEspectaculoAPaqueteDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    */
 
-    /*       TODO     void altaEspectadorAPaquete      (FALTA VER QUE PASA CON EspectadorPaquete)
+    //altaEspectadorAPaquete
     @POST
-    @Path("/")
+    @Path("/espectador")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(PaqueteDTO paqueteDTO) {
+    public Response create(EspectadorPaqueteDTO espectadorPaqueteDTO) {
         try {
-            fabrica.getInstance().getIPaquete().altaPaquete(paqueteDTO);
+            fabrica.getInstance().getIPaquete().altaEspectadorAPaquete(espectadorPaqueteDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    */
 
 
 
