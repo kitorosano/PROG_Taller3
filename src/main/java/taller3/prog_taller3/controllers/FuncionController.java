@@ -39,6 +39,7 @@ public class FuncionController {
         }
     }
 
+    //Alta de nueva funcion
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,6 +53,7 @@ public class FuncionController {
     }
 
 
+    //Obtener funcion dado plataforma-espectaculo-funcion
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}&{nombreFuncion}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,6 +75,7 @@ public class FuncionController {
         }
     }
 
+    //Obtener funciones de una plataforma
     @GET
     @Path("/{nombrePlataforma}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -91,6 +94,7 @@ public class FuncionController {
         }
     }
 
+    //Obtener funciones de un espectaculo
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -110,6 +114,7 @@ public class FuncionController {
         }
     }
 
+    //Obtener artistas invitados a una funcion
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}&{nombreFuncion}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -134,6 +139,7 @@ public class FuncionController {
         }
     }
 
+    //Obtener funciones de un artista
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}&{nombreArtista}")
     @Produces(MediaType.APPLICATION_JSON)

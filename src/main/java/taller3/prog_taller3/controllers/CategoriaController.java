@@ -40,6 +40,7 @@ public class CategoriaController {
         }
     }
 
+    //Alta de una categoria nueva
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,6 +53,7 @@ public class CategoriaController {
         }
     }
 
+    //Obtener categoria por su nombre
     @GET
     @Path("/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +73,7 @@ public class CategoriaController {
         }
     }
 
+    //Obtener espectaculos de una categoria
     @GET
     @Path("/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,6 +92,7 @@ public class CategoriaController {
         }
     }
 
+    //Obtener categorias de un espectaculo
     @GET
     @Path("/{nombreEspectaculo}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,6 +111,7 @@ public class CategoriaController {
         }
     }
 
+    //Alta de una categoria a un espectaculo
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)

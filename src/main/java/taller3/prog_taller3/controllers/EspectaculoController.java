@@ -53,6 +53,7 @@ public class EspectaculoController {
         }
     }
 
+    //Obtener espectaculos por estado
     @GET
     @Path("/{estado}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +72,7 @@ public class EspectaculoController {
         }
     }
 
+    //Obtener espectaculos de un artista
     @GET
     @Path("/{nicknameArtista}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,6 +91,7 @@ public class EspectaculoController {
         }
     }
 
+    //Obtener espectaculos de una plataforma
     @GET
     @Path("/{nombrePlataforma}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,6 +110,7 @@ public class EspectaculoController {
         }
     }
 
+    //Obtener un espectaculo especifico
     @GET
     @Path("/{nombrePlataforma}&{nombreEspectaculo}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -127,6 +131,7 @@ public class EspectaculoController {
         }
     }
 
+    //Obtener espectaculos de una plataforma y estado
     @GET
     @Path("/{nombrePlataforma}&{estado}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -146,6 +151,7 @@ public class EspectaculoController {
         }
     }
 
+    //Obtener espectaculos de un artista y estado
     @GET
     @Path("/{nombreArtista}&{estado}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -165,6 +171,7 @@ public class EspectaculoController {
         }
     }
 
+    //Cambiar estado de espectaculo (Considerar si es viable dejar @DELETE)
     @DELETE
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
