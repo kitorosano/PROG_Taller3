@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Response;
 import main.java.taller1.Logica.Clases.E_EstadoEspectaculo;
 import main.java.taller1.Logica.Clases.Plataforma;
 import main.java.taller1.Logica.Clases.Usuario;
+import main.java.taller1.Logica.DTOs.AltaEspectaculoDTO;
 import main.java.taller1.Logica.DTOs.EspectaculoDTO;
 import main.java.taller1.Logica.DTOs.EspectaculoNuevoEstadoDTO;
 import main.java.taller1.Logica.Fabrica;
