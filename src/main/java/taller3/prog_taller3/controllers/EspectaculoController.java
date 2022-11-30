@@ -5,33 +5,27 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import main.java.taller1.Logica.Clases.E_EstadoEspectaculo;
-import main.java.taller1.Logica.Clases.Plataforma;
-import main.java.taller1.Logica.Clases.Usuario;
 import main.java.taller1.Logica.DTOs.AltaEspectaculoDTO;
 import main.java.taller1.Logica.DTOs.EspectaculoDTO;
 import main.java.taller1.Logica.DTOs.EspectaculoNuevoEstadoDTO;
 import main.java.taller1.Logica.Fabrica;
-import main.java.taller1.Logica.Clases.Espectaculo;
-import main.java.taller1.Logica.Mappers.EspectaculoMapper;
 
 import java.util.Map;
 import java.util.Optional;
 
-@Path("/espectaculos")
 public class EspectaculoController {
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todos los espectaculos
     @GET
-    @Path("/")
+    @Path("/espectaculos")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculos();
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculos();
 
             if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+                return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -42,7 +36,7 @@ public class EspectaculoController {
 
     //Ingresar espectaculo
     @POST
-    @Path("/")
+    @Path("/espectaculos")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(AltaEspectaculoDTO espectaculo) {
         try {
@@ -52,18 +46,35 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
+    
+    //Obtener un espectaculo especifico
+    @GET
+    @Path("/espectaculos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response find(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
+        try {
+            EspectaculoDTO espectaculo = fabrica.getInstance().getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo).orElse(null);
+            
+            if (espectaculo != null) {
+                return Response.ok(new Gson().toJson(espectaculo)).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
+        }
+    }
 
     //Obtener espectaculos por estado
     @GET
-    @Path("/{estado}")
+    @Path("/espectaculos")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByEstado(@PathParam("estado") E_EstadoEspectaculo estado) {
+    public Response findByEstado(@QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorEstado(estado);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorEstado(estado);
 
             if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+                return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -74,15 +85,14 @@ public class EspectaculoController {
 
     //Obtener espectaculos de un artista
     @GET
-    @Path("/{nicknameArtista}")
+    @Path("/espectaculos")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByArtista(@PathParam("nicknameArtista") String nicknameArtista) {
+    public Response findByArtista(@QueryParam("artistaOrganizador") String artistaOrganizador) {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorArtista(nicknameArtista);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorArtista(artistaOrganizador);
 
             if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+                return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -93,36 +103,14 @@ public class EspectaculoController {
 
     //Obtener espectaculos de una plataforma
     @GET
-    @Path("/{nombrePlataforma}")
+    @Path("/espectaculos")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPlataforma(@PathParam("nombrePlataforma") String nombrePlataforma) {
+    public Response findByPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorPlataforma(nombrePlataforma);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorPlataforma(nombrePlataforma);
 
             if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
-        }
-    }
-
-    //Obtener un espectaculo especifico
-    @GET
-    @Path("/{nombrePlataforma}&{nombreEspectaculo}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPlataforma_Espectaculo(@PathParam("nombrePlataforma") String nombrePlataforma,
-                                            @PathParam("nombreEspectaculo") String nombreEspectaculo){
-        try {
-            Optional<Espectaculo> OPTespectaculo = fabrica.getInstance().getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo);
-            Espectaculo espectaculo = OPTespectaculo.get();
-
-            if (espectaculo != null) {
-                EspectaculoDTO espectaculoDTO = EspectaculoMapper.toDTO(espectaculo);
-                return Response.ok(new Gson().toJson(espectaculoDTO)).build();
+                return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -133,16 +121,14 @@ public class EspectaculoController {
 
     //Obtener espectaculos de una plataforma y estado
     @GET
-    @Path("/{nombrePlataforma}&{estado}")
+    @Path("/espectaculos")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPlataforma_Estado(@PathParam("nombrePlataforma") String nombrePlataforma,
-                                            @PathParam("estado") E_EstadoEspectaculo estado){
+    public Response findByPlataformaAndEstado(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorPlataformaYEstado(nombrePlataforma, estado);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorPlataformaYEstado(nombrePlataforma, estado);
 
             if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+                return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -155,14 +141,12 @@ public class EspectaculoController {
     @GET
     @Path("/{nombreArtista}&{estado}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByArtista_Estado(@PathParam("nombreArtista") String nombreArtista,
-                                         @PathParam("estado") E_EstadoEspectaculo estado){
+    public Response findByArtistaAndEstado(@QueryParam("nombreArtista") String nombreArtista, @QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
-            Map<String, Espectaculo> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorArtistaYEstado(nombreArtista, estado);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorArtistaYEstado(nombreArtista, estado);
 
             if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
+                return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
@@ -170,10 +154,46 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-
+    
+    //Obtener espectaculos de una categoria
+    @GET
+    @Path("/espectaculos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByNombreCategoria(@QueryParam("nombreCategoria") String nombreCategoria) {
+        try {
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorCategoria(nombreCategoria);
+            
+            if (espectaculos != null) {
+                return Response.ok(new Gson().toJson(espectaculos)).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
+        }
+    }
+    
+    //Obtener espectaculos de un paquete
+    @GET
+    @Path("/espectaculos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByPaquete(@QueryParam("nombrePaquete") String nombrePaquete) {
+        try {
+            Map<String,EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorPaquete(nombrePaquete);
+            
+            if (espectaculos != null) {
+                return Response.ok(new Gson().toJson(espectaculos)).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
+        }
+    }
+    
     //Cambiar estado de espectaculo (Considerar si es viable dejar @DELETE)
     @DELETE
-    @Path("/")
+    @Path("/espectaculos")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(EspectaculoNuevoEstadoDTO nuevoDTO) {
         try {
@@ -183,6 +203,4 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-
-
 }

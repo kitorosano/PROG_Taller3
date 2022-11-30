@@ -8,19 +8,16 @@ import main.java.taller1.Logica.Clases.*;
 import main.java.taller1.Logica.DTOs.*;
 import main.java.taller1.Logica.Fabrica;
 import main.java.taller1.Logica.Mappers.*;
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 
 import java.util.Map;
-import java.util.Optional;
 
-@Path("/paquetes")
 public class PaqueteController {
 
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todos los paquetes
     @GET
-    @Path("/")
+    @Path("/paquetes")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -39,7 +36,7 @@ public class PaqueteController {
 
     //Ingresar paquete nuevo
     @POST
-    @Path("/")
+    @Path("/paquetes")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(PaqueteDTO paqueteDTO) {
         try {
@@ -52,12 +49,11 @@ public class PaqueteController {
 
     //Obtener paquete por nombre
     @GET
-    @Path("/{nombre}")
+    @Path("/paquetes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByNombre(@PathParam("nombre") String nombre) {
+    public Response find(@QueryParam("nombre") String nombre) {
         try {
-            Optional<Paquete> OPTpaquete = fabrica.getIPaquete().obtenerPaquete(nombre);
-            Paquete paquete = OPTpaquete.get();
+            Paquete paquete = fabrica.getIPaquete().obtenerPaquete(nombre).orElse(null);
 
             if (paquete != null) {
                 PaqueteDTO paqueteDTO = PaqueteMapper.toDTO(paquete);
@@ -72,10 +68,9 @@ public class PaqueteController {
 
     //Obtener paquetes de un espectaculo
     @GET
-    @Path("/{nombreEspectaculo}&{nombrePlataforma}")
+    @Path("/paquetes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByPlataforma_Espectaculo(@PathParam("nombrePlataforma") String nombrePlataforma,
-                                                 @PathParam("nombreEspectaculo") String nombreEspectaculo){
+    public Response findByspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
             Map<String, Paquete> paquetes = fabrica.getInstance().getIPaquete().obtenerPaquetesDeEspectaculo(nombreEspectaculo, nombrePlataforma);
 
@@ -90,57 +85,18 @@ public class PaqueteController {
         }
     }
 
-    //Obtener espectaculos de un paquete
-    @GET
-    @Path("/espectaculos/{nombre}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findEspectaculoByNombre(@PathParam("nombre") String nombre) {
-        try {
-            Map<String,Espectaculo> espectaculos = fabrica.getIPaquete().obtenerEspectaculosDePaquete(nombre);
-
-            if (espectaculos != null) {
-                Map<String, EspectaculoDTO> espectaculosDTO = EspectaculoMapper.toDTOMap(espectaculos);
-                return Response.ok(new Gson().toJson(espectaculosDTO)).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
-        }
-    }
-
 
     //Obtener paquetes de un espectador
     @GET
-    @Path("/espectador/{nombre}")
+    @Path("/paquetes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findEspectadorByNombre(@PathParam("nombre") String nombre) {
+    public Response findByNombreEspectador(@QueryParam("nombreEspectador") String nombreEspectador) {
         try {
-            Map<String, Paquete> paquetes = fabrica.getIPaquete().obtenerPaquetesPorEspectador(nombre);
+            Map<String, Paquete> paquetes = fabrica.getIPaquete().obtenerPaquetesPorEspectador(nombreEspectador);
 
             if (paquetes != null) {
                 Map<String, PaqueteDTO> PaquetesDTOMap = PaqueteMapper.toDTOMap(paquetes);
                 return Response.ok(new Gson().toJson(PaquetesDTOMap)).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
-        }
-    }
-
-
-    //Obtener espectadores de un paquete
-    @GET
-    @Path("/espectadores/{nombre}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findEspectadoresByNombre(@PathParam("nombre") String nombre) {
-        try {
-            Map<String,Usuario> espectadores = fabrica.getIPaquete().obtenerEspectadoresDePaquete(nombre);
-
-            if (espectadores != null) {
-                Map<String, UsuarioDTO> espectadoresDTO = UsuarioMapper.toDTOMap(espectadores);
-                return Response.ok(new Gson().toJson(espectadoresDTO)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
