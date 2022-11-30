@@ -37,6 +37,7 @@ public class PaqueteController {
         }
     }
 
+    //Ingresar paquete nuevo
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -49,6 +50,7 @@ public class PaqueteController {
         }
     }
 
+    //Obtener paquete por nombre
     @GET
     @Path("/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,6 +70,7 @@ public class PaqueteController {
         }
     }
 
+    //Obtener paquetes de un espectaculo
     @GET
     @Path("/{nombreEspectaculo}&{nombrePlataforma}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -87,6 +90,7 @@ public class PaqueteController {
         }
     }
 
+    //Obtener espectaculos de un paquete
     @GET
     @Path("/espectaculos/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,6 +110,7 @@ public class PaqueteController {
     }
 
 
+    //Obtener paquetes de un espectador
     @GET
     @Path("/espectador/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -125,6 +130,7 @@ public class PaqueteController {
     }
 
 
+    //Obtener espectadores de un paquete
     @GET
     @Path("/espectadores/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -144,7 +150,7 @@ public class PaqueteController {
     }
 
 
-    //altaEspectaculoAPaquete
+    //Alta de espectaculo a paquete
     @POST
     @Path("/espectaculo")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -157,7 +163,7 @@ public class PaqueteController {
         }
     }
 
-    //altaEspectadorAPaquete
+    //Alta de espectador a paquete
     @POST
     @Path("/espectador")
     @Consumes(MediaType.APPLICATION_JSON)
