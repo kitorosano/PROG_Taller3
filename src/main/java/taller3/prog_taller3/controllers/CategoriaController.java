@@ -12,13 +12,14 @@ import main.java.taller1.Logica.Mappers.CategoriaMapper;
 
 import java.util.Map;
 
+@Path("/categorias")
 public class CategoriaController {
 
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todas las categorias
     @GET
-    @Path("/categorias")
+    @Path("/findAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -37,7 +38,7 @@ public class CategoriaController {
 
     //Alta de una categoria nueva
     @POST
-    @Path("/categorias")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CategoriaDTO categoriaDTO) {
         try {
@@ -50,7 +51,7 @@ public class CategoriaController {
 
     //Obtener categoria por su nombre
     @GET
-    @Path("/categorias")
+    @Path("/findByNombre")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByNombre(@QueryParam("nombre") String nombre) {
         try {
@@ -69,7 +70,7 @@ public class CategoriaController {
 
     //Obtener categorias de un espectaculo
     @GET
-    @Path("/categorias")
+    @Path("/findByEspectaculo")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByEspectaculo(@QueryParam("nombreEspectaculo") String nombreEspectaculo) {
         try {
@@ -88,9 +89,9 @@ public class CategoriaController {
 
     //Alta de una categoria a un espectaculo
     @POST
-    @Path("/categorias")
+    @Path("/createCategoriaAEspectaculo")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(AltaCategoriaAEspectaculoDTO altaCategoriaAEspectaculoDTO) {
+    public Response createCategoriaAEspectaculo(AltaCategoriaAEspectaculoDTO altaCategoriaAEspectaculoDTO) {
         try {
             fabrica.getInstance().getICategoria().altaCategoriaAEspectaculo(altaCategoriaAEspectaculoDTO);
             return Response.status(Response.Status.CREATED).build();

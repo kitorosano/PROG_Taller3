@@ -6,5 +6,4 @@ import jakarta.ws.rs.core.Application;
 @ApplicationPath("/api")
 public class Configuration extends Application {
 
-
 }

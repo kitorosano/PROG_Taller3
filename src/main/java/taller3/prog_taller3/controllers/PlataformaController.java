@@ -11,13 +11,14 @@ import main.java.taller1.Logica.Mappers.PlataformaMapper;
 
 import java.util.Map;
 
+@Path("/plataformas")
 public class PlataformaController {
 
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todas las plataformas
     @GET
-    @Path("/plataformas")
+    @Path("/findAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -36,7 +37,7 @@ public class PlataformaController {
 
     //obtener plataforma por nombre
     @GET
-    @Path("/plataformas")
+    @Path("/findById")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@QueryParam("nombre") String nombre) {
         try {
@@ -55,7 +56,7 @@ public class PlataformaController {
 
     //Ingresar plataforma
     @POST
-    @Path("/plataformas")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(PlataformaDTO plataforma) {
         try {

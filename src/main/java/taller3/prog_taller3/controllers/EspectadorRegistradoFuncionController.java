@@ -11,13 +11,14 @@ import main.java.taller1.Logica.Mappers.*;
 
 import java.util.Map;
 
+@Path("/espectadorRegistradoAFuncion")
 public class EspectadorRegistradoFuncionController {
 
     Fabrica fabrica = Fabrica.getInstance();
 
     //registrar 1 espectador a funcion
     @POST
-    @Path("espectador-funcion")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(AltaEspectadorRegistradoAFuncionDTO altaEspectadorRegistradoAFuncionDTO) {
         try {
@@ -30,9 +31,9 @@ public class EspectadorRegistradoFuncionController {
 
     //registrar coleccion de espectadores a funcion
     @POST
-    @Path("/espectadores")
+    @Path("/createMap")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(Map<String, AltaEspectadorRegistradoAFuncionDTO> espectadoresFunciones) {
+    public Response createMap(Map<String, AltaEspectadorRegistradoAFuncionDTO> espectadoresFunciones) {
         try {
             fabrica.getInstance().getIEspectadorRegistradoAFuncion().registrarEspectadoresAFunciones(espectadoresFunciones);
             return Response.status(Response.Status.CREATED).build();
@@ -43,7 +44,7 @@ public class EspectadorRegistradoFuncionController {
 
     //obtener funciones de un espectador
     @GET
-    @Path("espectador-funcion")
+    @Path("/findByNickname")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByNickname(@QueryParam("nickname") String nickname) {
         try {
@@ -62,11 +63,11 @@ public class EspectadorRegistradoFuncionController {
 
     //obtener espectadores de una funcion
     @GET
-    @Path("espectador-funcion")
+    @Path("/findByFuncion")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByFuncion(@QueryParam("nombreFuncion") String nombreFuncion) {
+    public Response findByFuncion(@QueryParam("nombreFuncion") String nombreFuncion, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
-            Map<String, Usuario> users = fabrica.getInstance().getIEspectadorRegistradoAFuncion().obtenerEspectadoresRegistradosAFuncion(nombreFuncion);
+            Map<String, Usuario> users = fabrica.getInstance().getIEspectadorRegistradoAFuncion().obtenerEspectadoresRegistradosAFuncion(nombreFuncion, nombreEspectaculo, nombrePlataforma);
 
             if (users != null) {
                 Map<String, UsuarioDTO> usersDTO = UsuarioMapper.toDTOMap(users);
@@ -78,6 +79,4 @@ public class EspectadorRegistradoFuncionController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-
-
 }
