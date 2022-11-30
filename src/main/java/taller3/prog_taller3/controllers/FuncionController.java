@@ -11,12 +11,13 @@ import main.java.taller1.Logica.Mappers.FuncionMapper;
 
 import java.util.Map;
 
+@Path("/funciones")
 public class FuncionController {
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todos las funciones
     @GET
-    @Path("/funciones")
+    @Path("/findAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -33,7 +34,7 @@ public class FuncionController {
 
     //Alta de nueva funcion
     @POST
-    @Path("/funciones")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(FuncionDTO funcion) {
         try {
@@ -47,7 +48,7 @@ public class FuncionController {
 
     //Obtener funcion dado plataforma-espectaculo-funcion
     @GET
-    @Path("/funciones")
+    @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreFuncion") String nombreFuncion) {
         try {
@@ -65,7 +66,7 @@ public class FuncionController {
 
     //Obtener funciones de una plataforma
     @GET
-    @Path("/funciones")
+    @Path("/findByPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
@@ -84,7 +85,7 @@ public class FuncionController {
 
     //Obtener funciones de un espectaculo
     @GET
-    @Path("/funciones")
+    @Path("/findByEspectaculoAndPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByEspectaculoAndPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo) {
         try {
@@ -103,7 +104,7 @@ public class FuncionController {
 
     //Obtener funciones de un artista
     @GET
-    @Path("/funciones")
+    @Path("/findByArtista")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByArtista(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreArtista") String nombreArtista) {
         try {
@@ -119,11 +120,5 @@ public class FuncionController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-
-
-
-
-
-
 
 }

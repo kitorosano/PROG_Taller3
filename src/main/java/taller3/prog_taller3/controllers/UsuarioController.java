@@ -13,6 +13,7 @@ import main.java.taller1.Logica.Mappers.UsuarioMapper;
 import java.util.HashMap;
 import java.util.Map;
 
+@Path("/usuarios")
 public class UsuarioController {
   
   Fabrica fabrica = Fabrica.getInstance();
@@ -20,7 +21,7 @@ public class UsuarioController {
   
   //alta de usuario
   @POST
-  @Path("/usuarios")
+  @Path("/create")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response create(UsuarioDTO user) {
     try {
@@ -33,7 +34,7 @@ public class UsuarioController {
 
   //obtener todos los usuarios
   @GET
-  @Path("/usuarios")
+  @Path("/findAll")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findAll() {
     System.out.println("findAll");
@@ -53,7 +54,7 @@ public class UsuarioController {
 
   //obtener usuario por nickname
   @GET
-  @Path("/usuarios")
+  @Path("/findByNickname")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByNickname(@QueryParam("nickname") String nickname) {
     System.out.println("findByNickname");
@@ -70,16 +71,16 @@ public class UsuarioController {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }
   }
-  
+
   //obtener usuario por correo
   @GET
-  @Path("/usuarios")
+  @Path("/findByCorreo")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByCorreo(@QueryParam("correo") String correo) {
     System.out.println("findByCorreo");
     try {
       Usuario user = fabrica.getInstance().getIUsuario().obtenerUsuarioPorCorreo(correo).orElse(null);
-      
+
       if (user != null) {
         UsuarioDTO userDTO = UsuarioMapper.toDTO(user);
         return Response.ok(new Gson().toJson(userDTO)).build();
@@ -90,16 +91,16 @@ public class UsuarioController {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }
   }
-  
+
   //Obtener espectadores de un paquete
   @GET
-  @Path("/usuarios")
+  @Path("/findByPaquete")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByPaquete(@QueryParam("nombrePaquete") String nombrePaquete) {
     System.out.println("findByPaquete");
     try {
       Map<String,Usuario> espectadores = fabrica.getIPaquete().obtenerEspectadoresDePaquete(nombrePaquete);
-      
+
       if (espectadores != null) {
         Map<String, UsuarioDTO> espectadoresDTO = UsuarioMapper.toDTOMap(espectadores);
         return Response.ok(new Gson().toJson(espectadoresDTO)).build();
@@ -110,10 +111,10 @@ public class UsuarioController {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }
   }
-  
+
   //Obtener artistas invitados a una funcion
   @GET
-  @Path("/usuarios")
+  @Path("/findArtistasInvitadosAFuncion")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findArtistasInvitadosAFuncion(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreFuncion") String nombreFuncion) {
     System.out.println("findArtistasInvitadosAFuncion");
@@ -123,7 +124,7 @@ public class UsuarioController {
       for (Artista a : artistas.values()){
         users.put(a.getNickname(), (Usuario) a);
       }
-      
+
       if (users != null) {
         Map<String, UsuarioDTO> usuariosDTO  = UsuarioMapper.toDTOMap(users);
         return Response.ok(new Gson().toJson(usuariosDTO)).build();
@@ -137,7 +138,7 @@ public class UsuarioController {
 
   //modificar usuario
   @PUT
-  @Path("/usuarios")
+  @Path("/updateByNickname")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response updateByNickname(UsuarioDTO user) {
     try {

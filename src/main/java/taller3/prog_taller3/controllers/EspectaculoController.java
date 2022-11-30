@@ -11,14 +11,14 @@ import main.java.taller1.Logica.DTOs.EspectaculoNuevoEstadoDTO;
 import main.java.taller1.Logica.Fabrica;
 
 import java.util.Map;
-import java.util.Optional;
 
+@Path("/espectaculos")
 public class EspectaculoController {
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todos los espectaculos
     @GET
-    @Path("/espectaculos")
+    @Path("/findAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -36,7 +36,7 @@ public class EspectaculoController {
 
     //Ingresar espectaculo
     @POST
-    @Path("/espectaculos")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(AltaEspectaculoDTO espectaculo) {
         try {
@@ -46,15 +46,15 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    
+
     //Obtener un espectaculo especifico
     @GET
-    @Path("/espectaculos")
+    @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
             EspectaculoDTO espectaculo = fabrica.getInstance().getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo).orElse(null);
-            
+
             if (espectaculo != null) {
                 return Response.ok(new Gson().toJson(espectaculo)).build();
             } else {
@@ -67,7 +67,7 @@ public class EspectaculoController {
 
     //Obtener espectaculos por estado
     @GET
-    @Path("/espectaculos")
+    @Path("/findByEstado")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByEstado(@QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
@@ -85,7 +85,7 @@ public class EspectaculoController {
 
     //Obtener espectaculos de un artista
     @GET
-    @Path("/espectaculos")
+    @Path("/findByArtista")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByArtista(@QueryParam("artistaOrganizador") String artistaOrganizador) {
         try {
@@ -103,7 +103,7 @@ public class EspectaculoController {
 
     //Obtener espectaculos de una plataforma
     @GET
-    @Path("/espectaculos")
+    @Path("/findByPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
@@ -121,7 +121,7 @@ public class EspectaculoController {
 
     //Obtener espectaculos de una plataforma y estado
     @GET
-    @Path("/espectaculos")
+    @Path("/findByPlataformaAndEstado")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPlataformaAndEstado(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
@@ -139,7 +139,7 @@ public class EspectaculoController {
 
     //Obtener espectaculos de un artista y estado
     @GET
-    @Path("/{nombreArtista}&{estado}")
+    @Path("/findByArtistaAndEstado")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByArtistaAndEstado(@QueryParam("nombreArtista") String nombreArtista, @QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
@@ -154,15 +154,15 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    
+
     //Obtener espectaculos de una categoria
     @GET
-    @Path("/espectaculos")
+    @Path("/findByNombreCategoria")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByNombreCategoria(@QueryParam("nombreCategoria") String nombreCategoria) {
         try {
             Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorCategoria(nombreCategoria);
-            
+
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
@@ -172,15 +172,15 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    
+
     //Obtener espectaculos de un paquete
     @GET
-    @Path("/espectaculos")
+    @Path("/findByPaquete")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPaquete(@QueryParam("nombrePaquete") String nombrePaquete) {
         try {
             Map<String,EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorPaquete(nombrePaquete);
-            
+
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
             } else {
@@ -190,12 +190,12 @@ public class EspectaculoController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
     }
-    
+
     //Cambiar estado de espectaculo (Considerar si es viable dejar @DELETE)
-    @DELETE
-    @Path("/espectaculos")
+    @PUT
+    @Path("/deleteFavorite")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(EspectaculoNuevoEstadoDTO nuevoDTO) {
+    public Response updateEstado(EspectaculoNuevoEstadoDTO nuevoDTO) {
         try {
             fabrica.getInstance().getIEspectaculo().cambiarEstadoEspectaculo(nuevoDTO);
             return Response.status(Response.Status.CREATED).build();

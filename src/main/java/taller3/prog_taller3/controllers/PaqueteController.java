@@ -11,13 +11,14 @@ import main.java.taller1.Logica.Mappers.*;
 
 import java.util.Map;
 
+@Path("/paquetes")
 public class PaqueteController {
 
     Fabrica fabrica = Fabrica.getInstance();
 
     //obtener todos los paquetes
     @GET
-    @Path("/paquetes")
+    @Path("/findAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
@@ -36,7 +37,7 @@ public class PaqueteController {
 
     //Ingresar paquete nuevo
     @POST
-    @Path("/paquetes")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(PaqueteDTO paqueteDTO) {
         try {
@@ -49,7 +50,7 @@ public class PaqueteController {
 
     //Obtener paquete por nombre
     @GET
-    @Path("/paquetes")
+    @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@QueryParam("nombre") String nombre) {
         try {
@@ -68,7 +69,7 @@ public class PaqueteController {
 
     //Obtener paquetes de un espectaculo
     @GET
-    @Path("/paquetes")
+    @Path("/findByspectaculoAndPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
@@ -88,7 +89,7 @@ public class PaqueteController {
 
     //Obtener paquetes de un espectador
     @GET
-    @Path("/paquetes")
+    @Path("/findByNombreEspectador")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByNombreEspectador(@QueryParam("nombreEspectador") String nombreEspectador) {
         try {
@@ -108,9 +109,9 @@ public class PaqueteController {
 
     //Alta de espectaculo a paquete
     @POST
-    @Path("/espectaculo")
+    @Path("/createEspectaculoAPaquete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(AltaEspectaculoAPaqueteDTO altaEspectaculoAPaqueteDTO) {
+    public Response createEspectaculoAPaquete(AltaEspectaculoAPaqueteDTO altaEspectaculoAPaqueteDTO) {
         try {
             fabrica.getInstance().getIPaquete().altaEspectaculoAPaquete(altaEspectaculoAPaqueteDTO);
             return Response.status(Response.Status.CREATED).build();
@@ -121,9 +122,9 @@ public class PaqueteController {
 
     //Alta de espectador a paquete
     @POST
-    @Path("/espectador")
+    @Path("/createEspectadorAPaquete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(EspectadorPaqueteDTO espectadorPaqueteDTO) {
+    public Response createEspectadorAPaquete(EspectadorPaqueteDTO espectadorPaqueteDTO) {
         try {
             fabrica.getInstance().getIPaquete().altaEspectadorAPaquete(espectadorPaqueteDTO);
             return Response.status(Response.Status.CREATED).build();
