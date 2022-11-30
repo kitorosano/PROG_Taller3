@@ -23,7 +23,7 @@ public class CategoriaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            Map<String, Categoria> categorias = fabrica.getInstance().getICategoria().obtenerCategorias();
+            Map<String, Categoria> categorias = fabrica.getICategoria().obtenerCategorias();
 
             if (categorias != null) {
                 Map<String, CategoriaDTO> categoriasDTO = CategoriaMapper.toDTOMap(categorias);
@@ -42,7 +42,7 @@ public class CategoriaController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CategoriaDTO categoriaDTO) {
         try {
-            fabrica.getInstance().getICategoria().altaCategoria(categoriaDTO);
+            fabrica.getICategoria().altaCategoria(categoriaDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
@@ -93,7 +93,7 @@ public class CategoriaController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createCategoriaAEspectaculo(AltaCategoriaAEspectaculoDTO altaCategoriaAEspectaculoDTO) {
         try {
-            fabrica.getInstance().getICategoria().altaCategoriaAEspectaculo(altaCategoriaAEspectaculoDTO);
+            fabrica.getICategoria().altaCategoriaAEspectaculo(altaCategoriaAEspectaculoDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();

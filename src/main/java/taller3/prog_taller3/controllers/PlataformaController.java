@@ -22,7 +22,7 @@ public class PlataformaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            Map<String,Plataforma> plataformas = fabrica.getInstance().getIPlataforma().obtenerPlataformas();
+            Map<String,Plataforma> plataformas = fabrica.getIPlataforma().obtenerPlataformas();
 
             if (plataformas != null) {
                 Map<String, PlataformaDTO> plataformasDTO = PlataformaMapper.toDTOMap(plataformas);
@@ -41,7 +41,7 @@ public class PlataformaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@QueryParam("nombre") String nombre) {
         try {
-            Plataforma plataforma = fabrica.getInstance().getIPlataforma().obtenerPlataforma(nombre).orElse(null);
+            Plataforma plataforma = fabrica.getIPlataforma().obtenerPlataforma(nombre).orElse(null);
 
             if (plataforma != null) {
                 PlataformaDTO plataformaDTO = PlataformaMapper.toDTO(plataforma);
@@ -60,7 +60,7 @@ public class PlataformaController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(PlataformaDTO plataforma) {
         try {
-            fabrica.getInstance().getIPlataforma().altaPlataforma(plataforma);
+            fabrica.getIPlataforma().altaPlataforma(plataforma);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();

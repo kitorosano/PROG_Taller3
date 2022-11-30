@@ -22,7 +22,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculos();
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculos();
 
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
@@ -40,7 +40,7 @@ public class EspectaculoController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(AltaEspectaculoDTO espectaculo) {
         try {
-            fabrica.getInstance().getIEspectaculo().altaEspectaculo(espectaculo);
+            fabrica.getIEspectaculo().altaEspectaculo(espectaculo);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
@@ -53,7 +53,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
-            EspectaculoDTO espectaculo = fabrica.getInstance().getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo).orElse(null);
+            EspectaculoDTO espectaculo = fabrica.getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo).orElse(null);
 
             if (espectaculo != null) {
                 return Response.ok(new Gson().toJson(espectaculo)).build();
@@ -71,7 +71,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByEstado(@QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
-            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorEstado(estado);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorEstado(estado);
 
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
@@ -89,7 +89,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByArtista(@QueryParam("artistaOrganizador") String artistaOrganizador) {
         try {
-            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorArtista(artistaOrganizador);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorArtista(artistaOrganizador);
 
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
@@ -107,7 +107,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
-            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorPlataforma(nombrePlataforma);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorPlataforma(nombrePlataforma);
 
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
@@ -125,7 +125,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPlataformaAndEstado(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
-            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorPlataformaYEstado(nombrePlataforma, estado);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorPlataformaYEstado(nombrePlataforma, estado);
 
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
@@ -143,7 +143,7 @@ public class EspectaculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByArtistaAndEstado(@QueryParam("nombreArtista") String nombreArtista, @QueryParam("estado") E_EstadoEspectaculo estado) {
         try {
-            Map<String, EspectaculoDTO> espectaculos = fabrica.getInstance().getIEspectaculo().obtenerEspectaculosPorArtistaYEstado(nombreArtista, estado);
+            Map<String, EspectaculoDTO> espectaculos = fabrica.getIEspectaculo().obtenerEspectaculosPorArtistaYEstado(nombreArtista, estado);
 
             if (espectaculos != null) {
                 return Response.ok(new Gson().toJson(espectaculos)).build();
@@ -197,7 +197,7 @@ public class EspectaculoController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateEstado(EspectaculoNuevoEstadoDTO nuevoDTO) {
         try {
-            fabrica.getInstance().getIEspectaculo().cambiarEstadoEspectaculo(nuevoDTO);
+            fabrica.getIEspectaculo().cambiarEstadoEspectaculo(nuevoDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();

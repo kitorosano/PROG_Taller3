@@ -21,7 +21,7 @@ public class FuncionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         try {
-            Map<String, Funcion> funciones = fabrica.getInstance().getIFuncion().obtenerFunciones();
+            Map<String, Funcion> funciones = fabrica.getIFuncion().obtenerFunciones();
             if (funciones != null) {
                 return Response.ok(new Gson().toJson(funciones)).build();
             } else {
@@ -38,7 +38,7 @@ public class FuncionController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(FuncionDTO funcion) {
         try {
-            fabrica.getInstance().getIFuncion().altaFuncion(funcion);
+            fabrica.getIFuncion().altaFuncion(funcion);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
@@ -52,7 +52,7 @@ public class FuncionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreFuncion") String nombreFuncion) {
         try {
-            Funcion funcion = fabrica.getInstance().getIFuncion().obtenerFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion).orElse(null);
+            Funcion funcion = fabrica.getIFuncion().obtenerFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion).orElse(null);
             if (funcion != null) {
                 FuncionDTO funcionDTO = FuncionMapper.toDTO(funcion);
                 return Response.ok(new Gson().toJson(funcionDTO)).build();
@@ -70,7 +70,7 @@ public class FuncionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
-            Map<String, Funcion> funciones = fabrica.getInstance().getIFuncion().obtenerFuncionesDePlataforma(nombrePlataforma);
+            Map<String, Funcion> funciones = fabrica.getIFuncion().obtenerFuncionesDePlataforma(nombrePlataforma);
 
             if (funciones != null) {
                 Map<String, FuncionDTO> funcionesDTO = FuncionMapper.toDTOMap(funciones);
@@ -89,7 +89,7 @@ public class FuncionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByEspectaculoAndPlataforma(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo) {
         try {
-            Map<String, Funcion> funciones = fabrica.getInstance().getIFuncion().obtenerFuncionesDeEspectaculo(nombrePlataforma, nombreEspectaculo);
+            Map<String, Funcion> funciones = fabrica.getIFuncion().obtenerFuncionesDeEspectaculo(nombrePlataforma, nombreEspectaculo);
 
             if (funciones != null) {
                 Map<String, FuncionDTO> funcionesDTO  = FuncionMapper.toDTOMap(funciones);
@@ -108,7 +108,7 @@ public class FuncionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByArtista(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreArtista") String nombreArtista) {
         try {
-            Map<String, Funcion> funciones = fabrica.getInstance().getIFuncion().obtenerFuncionesDeArtista(nombrePlataforma, nombreEspectaculo, nombreArtista);
+            Map<String, Funcion> funciones = fabrica.getIFuncion().obtenerFuncionesDeArtista(nombrePlataforma, nombreEspectaculo, nombreArtista);
 
             if (funciones != null) {
                 Map<String, FuncionDTO> funcionesDTO = FuncionMapper.toDTOMap(funciones);
