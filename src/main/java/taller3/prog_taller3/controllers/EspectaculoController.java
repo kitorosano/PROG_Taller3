@@ -191,9 +191,9 @@ public class EspectaculoController {
         }
     }
 
-    //Cambiar estado de espectaculo (Considerar si es viable dejar @DELETE)
+    //Cambiar estado de espectaculo
     @PUT
-    @Path("/deleteFavorite")
+    @Path("/updateEstado")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateEstado(EspectaculoNuevoEstadoDTO nuevoDTO) {
         try {
