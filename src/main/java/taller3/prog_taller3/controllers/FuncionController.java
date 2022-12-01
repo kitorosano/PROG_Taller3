@@ -23,7 +23,8 @@ public class FuncionController {
         try {
             Map<String, Funcion> funciones = fabrica.getIFuncion().obtenerFunciones();
             if (funciones != null) {
-                return Response.ok(new Gson().toJson(funciones)).build();
+                Map<String, FuncionDTO> funcionesDTO = FuncionMapper.toDTOMap(funciones);
+                return Response.ok(new Gson().toJson(funcionesDTO)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }

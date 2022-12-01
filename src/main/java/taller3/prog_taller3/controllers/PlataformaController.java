@@ -26,7 +26,7 @@ public class PlataformaController {
 
             if (plataformas != null) {
                 Map<String, PlataformaDTO> plataformasDTO = PlataformaMapper.toDTOMap(plataformas);
-                return Response.ok(new Gson().toJson(plataformas)).build();
+                return Response.ok(new Gson().toJson(plataformasDTO)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }

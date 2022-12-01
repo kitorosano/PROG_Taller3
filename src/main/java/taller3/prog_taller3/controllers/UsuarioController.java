@@ -121,9 +121,9 @@ public class UsuarioController {
     System.out.println("findArtistasInvitadosAFuncion");
     try {
       Map<String, Artista> artistas = fabrica.getIFuncion().obtenerArtistasInvitadosAFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion);
-      Map<String, Usuario> users = new HashMap<String, Usuario>();
+      Map<String, Usuario> users = new HashMap<>();
       for (Artista a : artistas.values()) {
-        users.put(a.getNickname(), (Usuario) a);
+        users.put(a.getNickname(), a);
       }
   
       if (users != null) {

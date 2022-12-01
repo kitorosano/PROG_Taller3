@@ -124,9 +124,9 @@ public class PaqueteController {
     @POST
     @Path("/createEspectadorAPaquete")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createEspectadorAPaquete(EspectadorPaqueteDTO espectadorPaqueteDTO) {
+    public Response createEspectadorAPaquete(AltaEspectadorAPaqueteDTO altaEspectadorAPaqueteDTO) {
         try {
-            fabrica.getIPaquete().altaEspectadorAPaquete(espectadorPaqueteDTO);
+            fabrica.getIPaquete().altaEspectadorAPaquete(altaEspectadorAPaqueteDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();

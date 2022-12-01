@@ -48,11 +48,10 @@ public class EspectadorRegistradoFuncionController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByNickname(@QueryParam("nickname") String nickname) {
         try {
-            Map<String, EspectadorRegistradoAFuncion> funciones = fabrica.getIEspectadorRegistradoAFuncion().obtenerFuncionesRegistradasDelEspectador(nickname);
+            Map<String, EspectadorRegistradoAFuncionDTO> funciones = fabrica.getIEspectadorRegistradoAFuncion().obtenerFuncionesRegistradasDelEspectador(nickname);
 
             if (funciones != null) {
-                Map<String, EspectadorRegistradoAFuncionDTO> funcionesDTO = EspectadorRegistradoAFuncionMapper.toDTOMap(funciones);
-                return Response.ok(new Gson().toJson(funcionesDTO)).build();
+                return Response.ok(new Gson().toJson(funciones)).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
