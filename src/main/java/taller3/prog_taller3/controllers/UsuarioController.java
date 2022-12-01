@@ -38,7 +38,6 @@ public class UsuarioController {
   @Path("/findAll")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findAll() {
-    System.out.println("findAll");
     try {
       Map<String, Usuario> users = fabrica.getIUsuario().obtenerUsuarios();
   
@@ -58,7 +57,6 @@ public class UsuarioController {
   @Path("/findByNickname")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByNickname(@QueryParam("nickname") String nickname) {
-    System.out.println("findByNickname");
     try {
       Usuario user = fabrica.getIUsuario().obtenerUsuarioPorNickname(nickname).orElse(null);
   
@@ -78,7 +76,6 @@ public class UsuarioController {
   @Path("/findByCorreo")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByCorreo(@QueryParam("correo") String correo) {
-    System.out.println("findByCorreo");
     try {
       Usuario user = fabrica.getIUsuario().obtenerUsuarioPorCorreo(correo).orElse(null);
   
@@ -98,7 +95,6 @@ public class UsuarioController {
   @Path("/findByPaquete")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findByPaquete(@QueryParam("nombrePaquete") String nombrePaquete) {
-    System.out.println("findByPaquete");
     try {
       Map<String, Usuario> espectadores = fabrica.getIPaquete().obtenerEspectadoresDePaquete(nombrePaquete);
   
@@ -118,7 +114,6 @@ public class UsuarioController {
   @Path("/findArtistasInvitadosAFuncion")
   @Produces(MediaType.APPLICATION_JSON)
   public Response findArtistasInvitadosAFuncion(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreFuncion") String nombreFuncion) {
-    System.out.println("findArtistasInvitadosAFuncion");
     try {
       Map<String, Artista> artistas = fabrica.getIFuncion().obtenerArtistasInvitadosAFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion);
       Map<String, Usuario> users = new HashMap<>();
