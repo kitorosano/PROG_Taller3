@@ -4,14 +4,12 @@ import com.google.gson.Gson;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import main.java.taller1.Logica.Clases.Artista;
 import main.java.taller1.Logica.Clases.Usuario;
 import main.java.taller1.Logica.DTOs.EspectaculoFavoritoDTO;
 import main.java.taller1.Logica.DTOs.UsuarioDTO;
 import main.java.taller1.Logica.Fabrica;
 import main.java.taller1.Logica.Mappers.UsuarioMapper;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Path("/usuarios")
