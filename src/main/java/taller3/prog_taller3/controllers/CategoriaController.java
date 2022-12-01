@@ -70,11 +70,11 @@ public class CategoriaController {
 
     //Obtener categorias de un espectaculo
     @GET
-    @Path("/findByEspectaculo")
+    @Path("/findByspectaculoAndPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByEspectaculo(@QueryParam("nombreEspectaculo") String nombreEspectaculo) {
+    public Response findByspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
-            Map<String, Categoria> categorias = fabrica.getICategoria().obtenerCategoriasDeEspectaculo(nombreEspectaculo);
+            Map<String, Categoria> categorias = fabrica.getICategoria().obtenerCategoriasDeEspectaculo(nombreEspectaculo, nombrePlataforma);
 
             if (categorias != null) {
                 Map<String, CategoriaDTO> categoriasDTO = CategoriaMapper.toDTOMap(categorias);
