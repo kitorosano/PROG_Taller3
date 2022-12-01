@@ -115,14 +115,10 @@ public class UsuarioController {
   @Produces(MediaType.APPLICATION_JSON)
   public Response findArtistasInvitadosAFuncion(@QueryParam("nombrePlataforma") String nombrePlataforma, @QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombreFuncion") String nombreFuncion) {
     try {
-      Map<String, Artista> artistas = fabrica.getIFuncion().obtenerArtistasInvitadosAFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion);
-      Map<String, Usuario> users = new HashMap<>();
-      for (Artista a : artistas.values()) {
-        users.put(a.getNickname(), a);
-      }
+      Map<String, Usuario> artistas = fabrica.getIFuncion().obtenerArtistasInvitadosAFuncion(nombrePlataforma, nombreEspectaculo, nombreFuncion);
   
-      if (users != null) {
-        Map<String, UsuarioDTO> usuariosDTO = UsuarioMapper.toDTOMap(users);
+      if (artistas != null) {
+        Map<String, UsuarioDTO> usuariosDTO = UsuarioMapper.toDTOMap(artistas);
         return Response.ok(new Gson().toJson(usuariosDTO)).build();
       } else {
         return Response.status(Response.Status.NOT_FOUND).build();
