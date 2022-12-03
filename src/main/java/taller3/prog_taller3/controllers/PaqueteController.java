@@ -69,9 +69,9 @@ public class PaqueteController {
 
     //Obtener paquetes de un espectaculo
     @GET
-    @Path("/findByspectaculoAndPlataforma")
+    @Path("/findByEspectaculoAndPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
+    public Response findByEspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
             Map<String, Paquete> paquetes = fabrica.getIPaquete().obtenerPaquetesDeEspectaculo(nombreEspectaculo, nombrePlataforma);
 
