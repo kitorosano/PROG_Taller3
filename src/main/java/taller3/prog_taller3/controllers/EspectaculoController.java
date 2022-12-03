@@ -157,9 +157,9 @@ public class EspectaculoController {
 
     //Obtener espectaculos de una categoria
     @GET
-    @Path("/findByNombreCategoria")
+    @Path("/findByCategoria")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByNombreCategoria(@QueryParam("nombreCategoria") String nombreCategoria) {
+    public Response findByCategoria(@QueryParam("nombreCategoria") String nombreCategoria) {
         try {
             Map<String, EspectaculoDTO> espectaculosDTO = fabrica.getIEspectaculo().obtenerEspectaculosPorCategoria(nombreCategoria);
 

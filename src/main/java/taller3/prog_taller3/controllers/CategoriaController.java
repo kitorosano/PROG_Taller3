@@ -70,9 +70,9 @@ public class CategoriaController {
 
     //Obtener categorias de un espectaculo
     @GET
-    @Path("/findByspectaculoAndPlataforma")
+    @Path("/findByEspectaculoAndPlataforma")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
+    public Response findByEspectaculoAndPlataforma(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
             Map<String, Categoria> categorias = fabrica.getICategoria().obtenerCategoriasDeEspectaculo(nombreEspectaculo, nombrePlataforma);
 

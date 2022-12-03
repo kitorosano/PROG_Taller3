@@ -37,9 +37,9 @@ public class PlataformaController {
 
     //obtener plataforma por nombre
     @GET
-    @Path("/findById")
+    @Path("/findByNombre")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(@QueryParam("nombre") String nombre) {
+    public Response findByNombre(@QueryParam("nombre") String nombre) {
         try {
             Plataforma plataforma = fabrica.getIPlataforma().obtenerPlataforma(nombre).orElse(null);
 
