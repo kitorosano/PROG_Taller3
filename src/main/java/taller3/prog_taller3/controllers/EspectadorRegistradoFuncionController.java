@@ -23,7 +23,7 @@ public class EspectadorRegistradoFuncionController {
     public Response create(AltaEspectadorRegistradoAFuncionDTO altaEspectadorRegistradoAFuncionDTO) {
         try {
             fabrica.getIEspectadorRegistradoAFuncion().registrarEspectadorAFuncion(altaEspectadorRegistradoAFuncionDTO);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
@@ -36,7 +36,7 @@ public class EspectadorRegistradoFuncionController {
     public Response createMap(Map<String, AltaEspectadorRegistradoAFuncionDTO> espectadoresFunciones) {
         try {
             fabrica.getIEspectadorRegistradoAFuncion().registrarEspectadoresAFunciones(espectadoresFunciones);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }

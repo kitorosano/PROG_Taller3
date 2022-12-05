@@ -41,7 +41,7 @@ public class EspectaculoController {
     public Response create(AltaEspectaculoDTO espectaculo) {
         try {
             fabrica.getIEspectaculo().altaEspectaculo(espectaculo);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
@@ -54,12 +54,7 @@ public class EspectaculoController {
     public Response find(@QueryParam("nombreEspectaculo") String nombreEspectaculo, @QueryParam("nombrePlataforma") String nombrePlataforma) {
         try {
             EspectaculoDTO espectaculoDTO = fabrica.getIEspectaculo().obtenerEspectaculo(nombrePlataforma, nombreEspectaculo).orElse(null);
-
-            if (espectaculoDTO != null) {
-                return Response.ok(new Gson().toJson(espectaculoDTO)).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
+            return Response.ok(new Gson().toJson(espectaculoDTO)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
