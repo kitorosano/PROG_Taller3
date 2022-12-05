@@ -164,4 +164,20 @@ public class UsuarioController {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }
   }
+  @GET
+  @Path("/findEspectaculosFavoritos")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response findEspectaculosFavoritos(@QueryParam("nickname") String nickname) {
+    try {
+      Map<String, String> espectaculos = fabrica.getIUsuario().obtenerEspectaculosFavoritos(nickname);
+
+      if (espectaculos != null) {
+        return Response.ok(new Gson().toJson(espectaculos)).build();
+      } else {
+        return Response.status(Response.Status.NOT_FOUND).build();
+      }
+    } catch (Exception e) {
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
+    }
+  }
 }
