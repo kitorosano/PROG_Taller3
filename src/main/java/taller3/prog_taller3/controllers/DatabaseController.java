@@ -18,7 +18,7 @@ public class DatabaseController {
     public Response createImage(FileInputStream imagen) {
         try {
             fabrica.getIDatabase().guardarImagen(imagen);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }

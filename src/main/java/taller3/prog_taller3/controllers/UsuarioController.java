@@ -25,7 +25,7 @@ public class UsuarioController {
   public Response create(UsuarioDTO user) {
     try {
       fabrica.getIUsuario().altaUsuario(user);
-      return Response.status(Response.Status.CREATED).build();
+      return Response.status(Response.Status.OK.getStatusCode()).build();
     } catch (Exception e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }
@@ -76,13 +76,11 @@ public class UsuarioController {
   public Response findByCorreo(@QueryParam("correo") String correo) {
     try {
       Usuario user = fabrica.getIUsuario().obtenerUsuarioPorCorreo(correo).orElse(null);
-  
-      if (user != null) {
-        UsuarioDTO userDTO = UsuarioMapper.toDTO(user);
-        return Response.ok(new Gson().toJson(userDTO)).build();
-      } else {
-        return Response.status(Response.Status.NOT_FOUND).build();
+      UsuarioDTO userDTO = null;
+      if(user!=null){
+        userDTO= UsuarioMapper.toDTO(user);
       }
+      return Response.ok(new Gson().toJson(userDTO)).build();
     } catch (Exception e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }
@@ -133,7 +131,7 @@ public class UsuarioController {
   public Response updateByNickname(UsuarioDTO user) {
     try {
       fabrica.getIUsuario().modificarUsuario(user);
-      return Response.status(Response.Status.NO_CONTENT).build();
+      return Response.status(Response.Status.OK.getStatusCode()).build();
     } catch (Exception e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
     }

@@ -42,7 +42,7 @@ public class PaqueteController {
     public Response create(PaqueteDTO paqueteDTO) {
         try {
             fabrica.getIPaquete().altaPaquete(paqueteDTO);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
@@ -114,7 +114,7 @@ public class PaqueteController {
     public Response createEspectaculoAPaquete(AltaEspectaculoAPaqueteDTO altaEspectaculoAPaqueteDTO) {
         try {
             fabrica.getIPaquete().altaEspectaculoAPaquete(altaEspectaculoAPaqueteDTO);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
@@ -127,7 +127,7 @@ public class PaqueteController {
     public Response createEspectadorAPaquete(AltaEspectadorAPaqueteDTO altaEspectadorAPaqueteDTO) {
         try {
             fabrica.getIPaquete().altaEspectadorAPaquete(altaEspectadorAPaqueteDTO);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK.getStatusCode()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage()).build();
         }
